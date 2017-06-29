@@ -7,6 +7,7 @@ import com.hanbit.opp.service.CalcService;
 import com.hanbit.opp.service.Calculator2Service;
 import com.hanbit.opp.service.CalculatorService;
 import com.hanbit.opp.service.EvenSumService;
+import com.hanbit.opp.service.GradeService;
 import com.hanbit.opp.service.LeapYearService;
 import com.hanbit.opp.service.TaxService;
 
@@ -14,29 +15,33 @@ public class Controller {
 	public static void main(String[] args) {
 		Scanner s =new Scanner(System.in);
 		//String flag=s.next(); switch문에 바로 입력
+		CalcService c=new CalcService();
+		
         while (true) {
-        	System.out.println("0.stop 1.bmi 2.tax 3.Leap 4.- 5.EvenSum \n ");
-        	System.out.println("6.Calculator 7.+ 8.- 9.* 10./ \n ");
+        	System.out.println("0.stop 1.bmi 2.tax 3.Leap 4.Calc1 5.EvenSum \n ");
+        	System.out.println("6.Calc2 7.+ 8.- 9.* 10./ 11.grade \n ");
         	
 			switch (s.next()) {
 				case "0":
 					System.out.println("stop stop");
 					return;
 				case "1":
-					BmiService s1=new BmiService();
+					BmiService bm=new BmiService();
 					System.out.print("Enter Height?\n");
-					double h = s.nextDouble()/100;
+					double height = s.nextDouble()/100;
+					bm.setHeight(height);
 					System.out.print("Enter Weight?\n");
-					double w = s.nextDouble();
-					
-					String bmi=s1.execute(h,w);
-					System.out.print("BMI ="+bmi+"입니다\n");
+					double weigth = s.nextDouble();
+					bm.setWeigth(weigth);
+					bm.setResult();
+					bm.setBmi();									
+					System.out.print("BMI ="+bm.getResult()+"입니다\n");
 					break;
 				case "2":
 					TaxService s2=new TaxService();	
 					
 					System.out.print("이름 입력?\n");
-					String name = s.next();
+					String name1 = s.next();
 					System.out.print("연봉 입력?\n");
 					int pay = s.nextInt();
 					
@@ -50,7 +55,7 @@ public class Controller {
 					System.out.print("----------------------------------------\n");		
 					System.out.print(
 					       String.format("* %s | %d 천원 |  %d  |  %d 천원  :\n"
-						   ,name,pay,(int)(rate*100),tax));
+						   ,name1,pay,(int)(rate*100),tax));
 					System.out.print("****************************************\n");
 					return;
 				case "3":
@@ -97,46 +102,60 @@ public class Controller {
             		int result1=s6.executeCal2(opcode1, num11, num22);
             		System.out.print(String.format("%d %s %d = %d",num11,opcode1,num22,result1));           		
 					return;
-                case "7":
-                	CalcService s7=new CalcService();
+                case "7":              	
                 	System.out.println("첫 값?");
-            		int a7=s.nextInt();
+            		String a=s.next();
             		System.out.println("둘 값?");
-            		int b7=s.nextInt();	
-            		int c7=s7.calcPlus(a7, b7);
-            		System.out.print("더하기 결과값:"+c7);
+            		String b=s.next();	
+            		String plus=c.calcPlus(a, b);
+            		System.out.print("더하기 결과값:"+plus);
 					return;	
-                case "8":
-                	CalcService s8=new CalcService();
+                case "8":             	
                 	System.out.println("첫 값?");
-                	int a8=s.nextInt();
+                	String a8=s.next();
                 	System.out.println("둘 값?");
-                	int b8=s.nextInt();
-                	int c8=s8.calcMinus(a8, b8);
-            		System.out.print("빼기 결과값:"+c8);
+                	String b8=s.next();
+                	String minus=c.calcMinus(a8, b8);
+            		System.out.print("빼기 결과값:"+minus);				
+					return;	
+                case "9":               	
+                	System.out.println("첫 값?");
+                	String a9=s.next();
+                	System.out.println("둘 값?");
+                	String b9=s.next();
+                	String multi=c.calcMulti(a9, b9);
+            		System.out.print("곱하기 결과값:"+multi);					
+					return;	
+                case "10":               	
+                	System.out.println("첫 값?");
+                	String a10=s.next();
+                	System.out.println("둘 값?");
+                	String b10=s.next();
+                	String divid=c.calcMulti(a10, b10);
+            		System.out.print("나누기 결과값:"+divid);
+					return;					
+				case "11":
+					GradeService g=new GradeService();
+					System.out.print("이름을 입력하세요?\n");
+					String name = s.next();
+					g.setName(name);
+					System.out.print("국어 점수를 입력하세요?\n");
+					int kor = s.nextInt();
+					g.setKor(kor);
+					System.out.print("영어 점수를 입력하세요?\n");
+					int eng = s.nextInt();
+					g.setEng(eng);
+					System.out.print("수학 점수를 입력하세요?\n");
+					int math = s.nextInt();
+					g.setMath(math);
+					//g.setTotal();
+					//g.setAvg();
+					g.setGrade();
 					
-					return;	
-                case "9":
-                	CalcService s9=new CalcService();
-                	System.out.println("첫 값?");
-                	int a9=s.nextInt();
-                	System.out.println("둘 값?");
-                	int b9=s.nextInt();
-                	int c9=s9.calcMulti(a9, b9);
-            		System.out.print("곱하기 결과값:"+c9);
-					
-					return;	
-                case "10":
-                	CalcService s10=new CalcService();
-                	System.out.println("첫 값?");
-                	int a10=s.nextInt();
-                	System.out.println("둘 값?");
-                	int b10=s.nextInt();
-                	int c10=s10.calcMulti(a10, b10);
-            		System.out.print("나누기 결과값:"+c10);
+					//System.out.println(g.getName()+": "+g.getGrade());			
+					System.out.println(g.toStirng());			
 					return;	
 				default:
-					System.out.println("enter error");
 					break;
 			}
 		}		
