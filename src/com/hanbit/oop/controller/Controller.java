@@ -134,27 +134,7 @@ public class Controller {
                 	String divid=c.calcMulti(a10, b10);
             		System.out.print("나누기 결과값:"+divid);
 					return;					
-				case "11":
-					GradeService g=new GradeService();
-					System.out.print("이름을 입력하세요?\n");
-					String name = s.next();
-					g.setName(name);
-					System.out.print("국어 점수를 입력하세요?\n");
-					int kor = s.nextInt();
-					g.setKor(kor);
-					System.out.print("영어 점수를 입력하세요?\n");
-					int eng = s.nextInt();
-					g.setEng(eng);
-					System.out.print("수학 점수를 입력하세요?\n");
-					int math = s.nextInt();
-					g.setMath(math);
-					//g.setTotal();
-					//g.setAvg();
-					g.setGrade();
-					
-					//System.out.println(g.getName()+": "+g.getGrade());			
-					System.out.println(g.toStirng());			
-					return;	
+				
 				default:
 					break;
 			}

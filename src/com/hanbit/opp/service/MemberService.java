@@ -1,52 +1,35 @@
 package com.hanbit.opp.service;
 
-public class MemberService {
-	private String name,id,pass,ssn,gender,age,message;
-	
-	public void setAge(){
+import com.hanbit.oop.controller.MemberController;
+import com.hanbit.oop.domain.MemberBean;
 
-		int year = Integer.parseInt(ssn.substring(0,2));
-		int gap =17-year;
-		if(gap>=0){
-			this.age=String.valueOf(2017-(year+2000));
-		}else{
-			this.age=String.valueOf(2017-(year+1900));
-		}						
+public class MemberService {
+	MemberBean session;
+	public MemberService(){
+		session=new MemberBean();
 	}
-	public String getAge(){
-		return age;
-	}
-	public void setName(String name){
-		this.name = name;
-	}
-	public String getName(){
-		return name;
-	}
-	public void setId(String id){
-		this.id = id;
-	}
-	public String getId(){
-		return id;
-	}
-	public void setPass(String pass){
-		this.pass = pass;
-	}
-	public String getPass(){
-		return pass;
-	}
-	public String getSsn() {
-		return ssn;
-	}
-	public void setSsn(String ssn) {
 	
-		this.ssn = ssn;
-	}
-	public String getGender() {
+	public String getAge(MemberBean member){
 		
-		return gender;
-	}
-	public void setGender() {
-		char ch = ssn.charAt(7);
+        String age = "";
+        
+		int year = Integer.parseInt(member.getSsn().substring(0,2));
+		int gap =17-year;
+		
+		if(gap>=0){
+			age=String.valueOf(2017-(year+2000));
+		}else{
+			age=String.valueOf(2017-(year+1900));
+		}		
+		return age;	
+		
+		//return (gap>=0)? age=String.valueOf(2017-(year+2000)) : 
+		//	             age=String.valueOf(2017-(year+1900));
+	}	
+	
+	public String getGender(MemberBean member) {
+		String gender ="";
+		char ch = member.getSsn().charAt(7);
 		
 		switch(ch){
 			case '1': case '3':
@@ -62,32 +45,29 @@ public class MemberService {
 			    gender = "외계인";
 				break;
 		}
-		this.gender = gender;
+		return gender;
+	}
+	public String join(MemberBean member){		
+		session=member;	
+		String welcome ="환영합니다."+session.getName();
+		return welcome;		 
 	}
 	
-	public void setLogin(String logid,String logpass){
-		String message = "";
-		
-        if(logid.equals(this.id) && (logpass.equals(this.pass))){
-        	setAge();
-        	setGender();      	
-        	message = toString();	
+	public String login(MemberBean member){
+		/*
+		String message ="",gender="",age="";		
+        if(member.getId().equals(session.getId()) && (member.getPass().equals(session.getPass()))){
+        	gender=getGender(member);  
+        	age=getAge(member);
+        	message = member.toStirng(gender,age);	
 		}else{
 			message = "login 다시...";
 		}
-	}
-	public String getLogin(){
 		return message;
+		*/
+        
+		return(member.getId().equals(session.getId()) && (member.getPass().equals(session.getPass())))?
+        		"성공..." : "실패...";
 	}
 	
-	public String toStirng(){
-		return "welcom"+name+"( "+gender+":"+age+"세 )";
-	}
-	
-	
-	
-	
-	
-	
-
 }
