@@ -3,15 +3,18 @@ package com.hanbit.oop.controller;
 import java.util.Scanner;
 
 import com.hanbit.oop.domain.GradeBean;
-import com.hanbit.opp.service.BmiService;
-import com.hanbit.opp.service.CalcService;
-
 import com.hanbit.opp.service.GradeService;
+import com.hanbit.opp.serviceImpl.BmiService;
+import com.hanbit.opp.serviceImpl.CalcService;
+import com.hanbit.opp.serviceImpl.GradeService2;
+import com.hanbit.opp.serviceImpl.GradeServiceImpl;
+
 import javax.swing.*;
 
 public class GradeController {
 	public static void main(String[] args) {
-		GradeService gs=new GradeService();
+		//GradeService2 gs=new GradeService2();
+		GradeService gs=new GradeServiceImpl();
 		GradeBean g=new GradeBean();
         while (true) {
         	

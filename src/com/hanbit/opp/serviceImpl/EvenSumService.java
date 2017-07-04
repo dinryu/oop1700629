@@ -1,4 +1,4 @@
-package com.hanbit.opp.service;
+package com.hanbit.opp.serviceImpl;
 
 public class EvenSumService {
 
