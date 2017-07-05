@@ -9,4 +9,6 @@ public interface AdminService {
     public MemberBean findById(String id);
     public MemberBean[] findByName(String name);
     public void updatePass(MemberBean member);
+    public void delete(String id);
+    
 }

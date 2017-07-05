@@ -9,21 +9,24 @@ public class AdminServiceImpl implements AdminService{
 	MemberBean member;
 	MemberBean[] list;
 	
-	public AdminServiceImpl(int limit) {
+	public AdminServiceImpl() {
 		count =0;
 		member = new MemberBean();
-		list = new MemberBean[limit];
+		list = new MemberBean[count];
 	}
 	
 	@Override
 	public void addMember(MemberBean member) {
-		list[count]=member;
-		count++;
-		
+		if(count == list.length){
+			MemberBean[] temp =new MemberBean[count+1];
+			System.arraycopy(list, 0, temp, 0, count);
+			list = temp;
+		}
+		list[count++]=member;		
 	}
 
 	@Override
-	public MemberBean[] getMembers() {		
+	public MemberBean[] getMembers() {
 		return list;
 	}
 
@@ -67,13 +70,35 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public void updatePass(MemberBean member){
-
+	public void updatePass(MemberBean param){
+        /*
 		for(int i=0;i<list.length;i++){
 		    if (member.getId().equals(list[i].getId())){	
 		    	list[i] = member;
-		    	break;	
-		    } 
-		}		
+		    	break;		    			    	
+		    } 		    
+		}*/		
+		member = findById(param.getId());
+		member.setPass(param.getPass());
+		for(int i=0;i<list.length;i++){
+		    if (member.getId().equals(list[i].getId())){	
+		    	list[i] = null;
+		    	break;			    			    	
+		    } 		    
+		}
+	}
+
+	@Override
+	public void delete(String id) {
+		
+		for(int i=0;i<count;i++){
+		    if (id.equals(list[i].getId())){	
+		    	list[i] = null;
+		    	list[i] = list[count-1];
+		    	list[count-1]=null;
+		    	count--;
+		    	break;			    			    	
+		    } 		  
+	}
 	}
 }

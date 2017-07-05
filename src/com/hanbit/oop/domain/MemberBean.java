@@ -27,9 +27,9 @@ public class MemberBean {
 	public String getSsn() {
 		return ssn;
 	}	
-	public String toStirng(){	
-		System.out.println("name="+name+" id="+id+" pass="+pass+" ssn="+ssn);
-		return "name="+name+" id="+id+" pass="+pass+" ssn="+ssn;
+	public String toStirng(){
+		System.out.println("toString: name="+name+" id="+id+" pass="+pass+" ssn="+ssn);
+		return "name="+name+" id="+id+" pass="+pass+" ssn="+ssn;	
 	}
 
 }

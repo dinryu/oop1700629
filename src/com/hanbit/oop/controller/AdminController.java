@@ -7,15 +7,11 @@ import com.hanbit.opp.service.AdminService;
 import com.hanbit.opp.serviceImpl.AdminServiceImpl;
 public class AdminController {
 	public static void main(String[] args){
-		String scount = JOptionPane.showInputDialog("몇명 입력 합니까?");
-		int limit = Integer.parseInt(scount);
-		AdminService service = new AdminServiceImpl(limit);
-		MemberBean member= null; 
-		String sList = "";
-		
+		AdminService service = new AdminServiceImpl();
+		MemberBean member= null; 				
 		while(true){
-			switch (JOptionPane.showInputDialog(
-					"0.exit 1.add 2.cnt 3.list 4.findById 5.findByName 6.update")){
+			switch(JOptionPane.showInputDialog(
+					"0.exit 1.add 2.cnt 3.list 4.findById 5.findByName 6.update 7.delete")){
 			case "0":				
 				return;
 			case "1":
@@ -36,22 +32,22 @@ public class AdminController {
 				JOptionPane.showMessageDialog(null, service.countMembers());
 				break;
 			case "3":
+				String sList = "";
 				MemberBean[] list=service.getMembers();
 				/*
 				JOptionPane.showMessageDialog(null, "1번째 "+list[0]);
 				JOptionPane.showMessageDialog(null, "2번째 "+list[1]);
 				JOptionPane.showMessageDialog(null, "3번째 "+list[2]);
 				*/
-				for(int i=0;i<list.length;i++){
-					sList += list[i].toString()+"\n";
-					
+				for(int i=0;i<service.countMembers();i++){
+					sList+=list[i].toStirng()+"\n";					
 				}
 				JOptionPane.showMessageDialog(null, "리스트 \n"+sList);
 				break;
 			case "4":
 				//service.findById(JOptionPane.showInputDialog("조회 id?"));
 				member = service.findById(JOptionPane.showInputDialog("조회 id?"));
-				JOptionPane.showMessageDialog(null, member.toStirng());
+				
 				break;
 			case "5":
 				String name =JOptionPane.showInputDialog("조회 name?");
@@ -67,15 +63,30 @@ public class AdminController {
 				JOptionPane.showMessageDialog(null, result);
 				break;
 
-			case "6":
+			case "6":/*
 				member = service.findById(JOptionPane.showInputDialog("수정회원 id?"));
 				JOptionPane.showMessageDialog(null, member.toStirng());
 				member.setPass(JOptionPane.showInputDialog("수정 pass?"));
 				service.updatePass(member);
+				*/
+				String foo = JOptionPane.showInputDialog("아이디 / 비번 ?");
+				String[] idPass=foo.split("/");
+				member = new MemberBean();
+				member.setId(idPass[0]);
+				member.setPass(idPass[1]);
+				service.updatePass(member);
+				JOptionPane.showMessageDialog(null, "수정완료");
+				break;
+			case "7":
+				String id = JOptionPane.showInputDialog("삭제회원 id?");
+				service.delete(id);
+				JOptionPane.showMessageDialog(null, "삭제완료");
 				break;
 			default:
 				break;
 			}
 		}		
-	}	
+	}
+
+	
 }
